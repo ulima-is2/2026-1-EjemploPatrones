@@ -5,37 +5,34 @@ import java.util.List;
 
 public class Cliente {
     static void main() {
-        Inventario inventario = new Inventario();
-        inventario.addItem(new Item("PS5", 12, 500f));
-        inventario.addItem(new Item("Switch 2", 20, 400f));
-
         List<Item> itemsAComprar = new ArrayList<>();
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
-        inventario.addItem(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
+        itemsAComprar.add(new Item("PS5", 1, 500f));
 
-        comprar(itemsAComprar, inventario);
+        comprar(itemsAComprar);
+
+        comprar(itemsAComprar);
     }
 
-    public static void comprar(List<Item> items, Inventario inventario) {
-        for (Item i : items) {
-            if (!inventario.existeItem(i)) {
-               return;
-            }
+    public static void comprar(List<Item> items) {
+        VentasManager manager = VentasManager.getInstance();
+
+        if (!manager.validarStock(items)) {
+            return;
         }
 
-        Descuento descuento = new Descuento();
-        float desc = descuento.aplicarDescuento(items);
+        float desc = manager.calcularDescuento(items);
+        float costoShipping = manager.calcularCostoShipping(items);
 
-        Shipping shipping = new Shipping();
-        float costoShipping = shipping.calcularShipping(items);
+
     }
 
 
